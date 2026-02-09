@@ -1,0 +1,130 @@
+:root {
+    --bg-color: #f0f2f5;
+    --text-main: #2c3e50;
+    --text-sub: #7f8c8d;
+    --card-bg: #ffffff;
+    --accent: #2980b9;
+    --hover-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.brand-logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -1px;
+    margin: 0;
+}
+
+.brand-tagline {
+    font-size: 1.1rem;
+    color: var(--text-sub);
+    margin-top: 5px;
+    font-weight: 300;
+}
+
+/* GRID LAYOUT */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+}
+
+/* CARD STYLE */
+.tool-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    border: 1px solid #e1e4e8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+    border-color: var(--accent);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 10px 0;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    line-height: 1.4;
+}
+
+/* FOOTER */
+footer {
+    margin-top: auto;
+    padding-top: 40px;
+    color: #bdc3c7;
+    font-size: 0.8rem;
+}
+
+/* NAVIGATION BUTTON (Для вставки в другие модули) */
+.nav-home-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    text-decoration: none;
+    background: #eef2f5;
+    color: #2c3e50;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    border: 1px solid #d1d9e6;
+}
+
+.nav-home-btn:hover {
+    background: #dfe6e9;
+    color: #000;
+}
+
+/* Адаптив для кнопки домой на мобилках */
+@media (max-width: 600px) {
+    .nav-home-btn {
+        position: static; /* Чтобы не перекрывала контент */
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+    .calculator-card, .audit-card {
+        padding-top: 10px; /* Коррекция отступа */
+    }
+}

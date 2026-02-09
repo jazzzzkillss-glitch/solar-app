@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoWatt Engineering Hub</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="global.css">
+	<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    // Инициализация
+    const tg = window.Telegram.WebApp;
+    
+    // Сообщаем телеграму, что мы готовы
+    tg.ready();
+    
+    // Растягиваем на весь экран (важно для мобилок)
+    tg.expand();
+
+    // (Опционально) Подстраиваем фон под тему пользователя
+    // document.body.style.backgroundColor = tg.themeParams.bg_color || "#f0f2f5";
+</script>
+</head>
+<body>
+
+    <header>
+        <h1 class="brand-logo">EcoWatt <span style="color: #2980b9;">Suite</span></h1>
+        <div class="brand-tagline">Инженерный комплекс v2.0 (Offline CRM)</div>
+    </header>
+
+    <div id="projects-section" style="width: 100%; max-width: 900px; margin-bottom: 40px;">
+        <h2 style="color: var(--text-main); border-bottom: 2px solid #ddd; padding-bottom: 10px;">📂 Мои Проекты</h2>
+        
+        <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            <thead style="background: #f8f9fa;">
+                <tr>
+                    <th style="padding: 15px; text-align: left;">Название / Клиент</th>
+                    <th style="padding: 15px; text-align: left;">Дата</th>
+                    <th style="padding: 15px; text-align: center;">Действия</th>
+                </tr>
+            </thead>
+            <tbody id="projects-list">
+                </tbody>
+        </table>
+        <div id="no-projects-msg" style="padding: 20px; text-align: center; color: #7f8c8d; display: none;">
+            Нет сохраненных проектов. Нажмите (+) в углу.
+        </div>
+    </div>
+
+    <main class="tools-grid">
+        <a href="load-audit.html" class="tool-card">
+            <div class="card-icon">📋</div>
+            <h3 class="card-title">Аудит потребления</h3>
+            <div class="card-desc">Расчет нагрузки и суточной энергии.</div>
+        </a>
+        <a href="winter-voc.html" class="tool-card">
+            <div class="card-icon">❄️</div>
+            <h3 class="card-title">Зимний VOC</h3>
+            <div class="card-desc">Проверка стринов по IEC 62548 (-25°C).</div>
+        </a>
+        <a href="battery-calc.html" class="tool-card">
+            <div class="card-icon">🔋</div>
+            <h3 class="card-title">Калькулятор АКБ</h3>
+            <div class="card-desc">Подбор емкости и времени автономии.</div>
+        </a>
+        <a href="cable-calc.html" class="tool-card">
+            <div class="card-icon">⚡</div>
+            <h3 class="card-title">Сечение кабеля</h3>
+            <div class="card-desc">Расчет потерь и токовой защиты.</div>
+        </a>
+    </main>
+
+    <footer>EcoWatt Engineering Suite v2.0 &copy; 2026</footer>
+
+    <script src="project-manager.js"></script>
+    <script>
+        // Скрипт отрисовки списка проектов
+        const list = document.getElementById('projects-list');
+        const projects = ProjectManager.getAllProjects();
+        const activeId = ProjectManager.getActiveProject().id;
+
+        if (projects.length === 0) {
+            document.getElementById('no-projects-msg').style.display = 'block';
+        } else {
+            // Сортировка: свежие сверху
+            projects.sort((a, b) => b.updatedAt - a.updatedAt);
+
+            projects.forEach(p => {
+                const tr = document.createElement('tr');
+                const date = new Date(p.updatedAt).toLocaleDateString() + ' ' + new Date(p.updatedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                const isActive = p.id === activeId;
+                
+                tr.innerHTML = `
+                    <td style="padding: 15px; border-bottom: 1px solid #eee;">
+                        <span style="font-weight: bold; font-size: 1.1rem;">${p.name}</span>
+                        ${isActive ? '<span style="background:#d4edda; color:#155724; font-size:0.7rem; padding:2px 6px; border-radius:4px; margin-left:10px;">АКТИВЕН</span>' : ''}
+                    </td>
+                    <td style="padding: 15px; border-bottom: 1px solid #eee; color: #666;">${date}</td>
+                    <td style="padding: 15px; border-bottom: 1px solid #eee; text-align: center;">
+                        <button class="action-btn open-btn" data-id="${p.id}" style="background:var(--accent); color:white; border:none; padding:5px 15px; border-radius:4px; cursor:pointer;">Открыть</button>
+                        <button class="action-btn del-btn" data-id="${p.id}" style="background:white; color:#c0392b; border:1px solid #eee; padding:5px 10px; border-radius:4px; cursor:pointer; margin-left:5px;">🗑</button>
+                    </td>
+                `;
+                list.appendChild(tr);
+            });
+        }
+
+        // Обработчики кнопок таблицы
+        list.addEventListener('click', (e) => {
+            if(e.target.classList.contains('open-btn')) {
+                const id = e.target.dataset.id;
+                ProjectManager.loadProject(id);
+                window.location.reload();
+            }
+            if(e.target.classList.contains('del-btn')) {
+                const id = e.target.dataset.id;
+                ProjectManager.deleteProject(id);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoWatt: Расчет сечения кабеля</title>
+    <link rel="stylesheet" href="cable-calc.css">
+	<link rel="stylesheet" href="dashboard.css">
+	<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    // Инициализация
+    const tg = window.Telegram.WebApp;
+    
+    // Сообщаем телеграму, что мы готовы
+    tg.ready();
+    
+    // Растягиваем на весь экран (важно для мобилок)
+    tg.expand();
+
+    // (Опционально) Подстраиваем фон под тему пользователя
+    // document.body.style.backgroundColor = tg.themeParams.bg_color || "#f0f2f5";
+</script>
+</head>
+<body>
+<a href="index.html" class="nav-home-btn">← Меню</a>
+
+    <div class="calculator-card">
+        <h2>⚡ Расчет сечения кабеля</h2>
+
+        <div class="toggle-container">
+            <button class="toggle-btn active" data-mode="watts">Ватты (P)</button>
+            <button class="toggle-btn" data-mode="amps">Амперы (I)</button>
+        </div>
+
+        <div class="input-group">
+            <label>Напряжение системы</label>
+            <select id="sys_voltage">
+                <option value="12">12 В (DC)</option>
+                <option value="24" selected>24 В (DC)</option>
+                <option value="48">48 В (DC)</option>
+                <option value="220">220 В (AC)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label id="label_power">Мощность нагрузки [Вт]</label>
+            <input type="number" id="val_power" placeholder="Например: 3000" inputmode="decimal">
+        </div>
+
+        <div class="input-group">
+            <label>Длина трассы (в одну сторону) <span class="hint">[м]</span></label>
+            <input type="number" id="val_dist" placeholder="Например: 10" inputmode="decimal">
+        </div>
+
+        <div class="row" style="display: flex; gap: 15px;">
+            <div class="input-group" style="flex: 1;">
+                <label>Доп. потери</label>
+                <select id="val_loss">
+                    <option value="1">1% (Срого)</option>
+                    <option value="2" selected>2% (Норма)</option>
+                    <option value="3">3% (Эконом)</option>
+                </select>
+            </div>
+            <div class="input-group" style="flex: 1;">
+                <label>Материал</label>
+                <select id="val_mat">
+                    <option value="cu" selected>Медь</option>
+                    <option value="al">Алюминий</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div class="main-result">
+                <div class="res-title">Рекомендуемый кабель</div>
+                <div id="out_cable" class="res-value">-- mm²</div>
+                <div id="out_criteria" class="res-sub">Заполните данные</div>
+            </div>
+
+            <div class="protection-block">
+                <div class="prot-icon">🛡</div>
+                <div class="prot-text">
+                    Рекомендуемый предохранитель / автомат:<br>
+                    <span id="out_fuse" class="prot-val">-- A</span>
+                </div>
+            </div>
+
+            <div id="block_losses" class="losses-card" style="display: none;">
+                <div class="loss-header">🔥 Анализ эффективности</div>
+                <div class="loss-row">
+                    <span>Тепловые потери на кабеле:</span>
+                    <span id="out_loss_watts" class="loss-bad">0 Вт</span>
+                </div>
+                <div class="loss-row">
+                    <span id="out_loss_money" style="width: 100%;">--</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="cable-calc.js"></script>
+	<script src="project-manager.js"></script>
+</body>
+</html>

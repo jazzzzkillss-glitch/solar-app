@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoWatt: Калькулятор зимнего VOC</title>
+    <link rel="stylesheet" href="winter-voc.css">
+	<link rel="stylesheet" href="dashboard.css">
+	<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    // Инициализация
+    const tg = window.Telegram.WebApp;
+    
+    // Сообщаем телеграму, что мы готовы
+    tg.ready();
+    
+    // Растягиваем на весь экран (важно для мобилок)
+    tg.expand();
+
+    // (Опционально) Подстраиваем фон под тему пользователя
+    // document.body.style.backgroundColor = tg.themeParams.bg_color || "#f0f2f5";
+</script>
+</head>
+<body>
+<a href="index.html" class="nav-home-btn">← Меню</a>
+
+    <div class="calculator-card">
+        <h2>❄ Расчет зимнего V<sub>oc</sub> стринга</h2>
+
+        <div class="input-group">
+            <label>V<sub>oc</sub> панели (STC) <span class="hint">[Вольт]</span></label>
+            <input type="text" id="voc_stc" placeholder="Например: 49.9" inputmode="decimal">
+        </div>
+
+        <div class="input-group">
+            <label>Температурный коэф. (Voc) <span class="hint">[% / °C]</span></label>
+            <input type="text" id="t_coef" placeholder="Например: 0.29 (знак сам исправится)" inputmode="decimal">
+        </div>
+
+        <hr>
+
+        <div class="input-group">
+            <label>Мин. температура зимой (T<sub>min</sub>) <span class="hint">[°C]</span></label>
+            <input type="text" id="t_min" placeholder="Например: -20" value="-20" inputmode="decimal">
+        </div>
+
+        <div class="input-group">
+            <label>Количество панелей в стринге <span class="hint">[шт]</span></label>
+            <input type="number" id="n_panels" placeholder="10" inputmode="numeric">
+        </div>
+
+        <hr>
+
+        <div class="input-group">
+            <label>Max V<sub>in</sub> инвертора <span class="hint">[опционально]</span></label>
+            <input type="number" id="vmax_inv" placeholder="Например: 550">
+        </div>
+
+        <div class="results-section">
+            <div class="result-row">
+                <span>Перепад (ΔT):</span>
+                <span id="out_delta_t">0 °C</span>
+            </div>
+            <div class="result-row">
+                <span>Рост напряжения:</span>
+                <span id="out_growth">0%</span>
+            </div>
+            <div class="result-row">
+                <span>V<sub>oc</sub> одной панели (зима):</span>
+                <span id="out_v_panel" style="font-weight: bold;">0 В</span>
+            </div>
+            
+            <div class="result-row total">
+                <span>Итого V<sub>oc</sub> стринга:</span>
+                <span id="out_v_string">0 В</span>
+            </div>
+
+            <div id="status_box" class="status-box"></div>
+			<hr class="divider-iec">
+
+            <div class="iec-section">
+                <div class="iec-header">
+                    <h3>🛡 Проверка по стандарту IEC 62548</h3>
+                    <span class="iec-badge">-25 °C</span>
+                </div>
+                
+                <div class="result-row">
+                    <span>V<sub>oc</sub> стринга (IEC):</span>
+                    <span id="out_v_string_iec" style="font-weight: bold;">0 В</span>
+                </div>
+
+                <div id="status_box_iec" class="status-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="winter-voc.js"></script>
+	<script src="project-manager.js"></script>
+</body>
+</html>

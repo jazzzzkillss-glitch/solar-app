@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoWatt: Аудит потребления</title>
+    <link rel="stylesheet" href="load-audit.css">
+	<link rel="stylesheet" href="dashboard.css">
+	<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    // Инициализация
+    const tg = window.Telegram.WebApp;
+    
+    // Сообщаем телеграму, что мы готовы
+    tg.ready();
+    
+    // Растягиваем на весь экран (важно для мобилок)
+    tg.expand();
+
+    // (Опционально) Подстраиваем фон под тему пользователя
+    // document.body.style.backgroundColor = tg.themeParams.bg_color || "#f0f2f5";
+</script>
+</head>
+<body>
+<a href="index.html" class="nav-home-btn">← Меню</a>
+
+    <div class="audit-card">
+        <h2>📊 Аудит энергопотребления</h2>
+
+        <div class="controls-bar">
+            <select id="preset_select" class="preset-select">
+                </select>
+            <button id="btn_add_preset" class="btn-add">✚ Добавить</button>
+            <button id="btn_add_empty" class="btn-add" style="background-color: #95a5a6;">Пустая строка</button>
+        </div>
+
+        <div class="audit-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-name">Прибор</th>
+                        <th class="col-num">Мощность (Вт)</th>
+                        <th class="col-num">Кол-во</th>
+                        <th class="col-num">Время (ч)</th>
+                        <th class="col-res">Сутки (Вт·ч)</th>
+                        <th class="col-action"></th>
+                    </tr>
+                </thead>
+                <tbody id="audit_body">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="results-dashboard">
+            
+            <div class="res-block res-inv">
+                <h3>⚡ Инвертор (Мощность)</h3>
+                <span class="sub-text">Расчетный пик нагрузки:</span>
+                <span id="out_peak_raw" style="font-weight: bold;">0 Вт</span>
+                <hr style="border: 0; border-top: 1px solid #d6eaf8; margin: 10px 0;">
+                <span class="sub-text">Рекомендуемая мощность:</span>
+                <span id="out_inv_rec" class="big-val">0.0 кВт</span>
+                <span class="sub-text" style="font-size: 0.8rem;">(с учетом запаса +20% и коэф. одновременности)</span>
+            </div>
+
+            <div class="res-block res-bat">
+                <h3>🔋 Аккумуляторы (Энергия)</h3>
+                <span class="sub-text">Суточное потребление:</span>
+                <span id="out_daily_energy" class="big-val">0.00 кВт·ч</span>
+                <div style="margin-top: 10px; font-size: 0.9rem;">
+                    Это значение используйте в <a href="battery-calc.html" target="_blank" style="color: var(--accent-bat); font-weight: bold;">Калькуляторе АКБ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="expert-row">
+            <label>
+                <input type="checkbox" id="check_expert"> Настройки расчета
+            </label>
+            <div id="expert_panel" style="display: none; align-items: center; gap: 5px; margin-left: 15px;">
+                <span>Коэф. одновременности:</span>
+                <input type="number" id="val_sim" class="sim-input" value="0.7" step="0.1" min="0.1" max="1.0">
+                <span style="font-size: 0.8rem;">(1.0 = все включено сразу)</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="load-audit.js"></script>\
+	<script src="project-manager.js"></script>
+</body>
+</html>

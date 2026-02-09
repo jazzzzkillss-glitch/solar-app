@@ -1,0 +1,205 @@
+:root {
+    --bg-color: #f4f4f9;
+    --card-bg: #ffffff;
+    --text-main: #333;
+    --text-secondary: #666;
+    --accent: #2c3e50;
+    --highlight: #e67e22; /* Оранжевый для акцента на потерях */
+    --success: #27ae60;
+    --danger: #c0392b;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+}
+
+.calculator-card {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-top: 0;
+    color: var(--accent);
+    text-align: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+}
+
+/* TOGGLE SWITCH (W / A) */
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.toggle-btn {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background: #f8f9fa;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+}
+
+.toggle-btn:first-child {
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+}
+
+.toggle-btn:last-child {
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+}
+
+.toggle-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+/* INPUTS */
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+.hint {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: normal;
+}
+
+input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+/* RESULTS BLOCK */
+.results-section {
+    margin-top: 25px;
+    border-top: 2px solid #eee;
+    padding-top: 20px;
+}
+
+.main-result {
+    background-color: #eef7f6;
+    border: 1px solid #b2d8d2;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.res-title {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.res-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.res-sub {
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/* PROTECTION BLOCK */
+.protection-block {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent);
+    margin-bottom: 20px;
+}
+
+.prot-icon {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.prot-text {
+    font-size: 0.95rem;
+}
+
+.prot-val {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+/* LOSS COMPARISON (SALES TOOL) */
+.losses-card {
+    background-color: #fff8e1;
+    border: 1px solid #ffe0b2;
+    border-radius: var(--border-radius);
+    padding: 15px;
+}
+
+.loss-header {
+    font-weight: bold;
+    color: #e65100;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.loss-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #eec;
+}
+
+.loss-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.loss-bad {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.loss-good {
+    color: var(--success);
+    font-weight: 600;
+}

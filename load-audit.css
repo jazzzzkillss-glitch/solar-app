@@ -1,0 +1,195 @@
+:root {
+    --bg-color: #f4f4f9;
+    --card-bg: #ffffff;
+    --text-main: #333;
+    --text-secondary: #666;
+    --accent-inv: #2980b9; /* Синий для инвертора */
+    --accent-bat: #27ae60; /* Зеленый для АКБ */
+    --danger: #c0392b;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+}
+
+.audit-card {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 800px; /* Шире, так как это таблица */
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    text-align: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+}
+
+/* CONTROLS (Add Buttons) */
+.controls-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    align-items: center;
+}
+
+.btn-add {
+    background-color: var(--accent-inv);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.btn-add:hover {
+    background-color: #3498db;
+}
+
+.preset-select {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+/* TABLE STYLES */
+.audit-table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+th {
+    text-align: left;
+    padding: 12px 8px;
+    background-color: #ecf0f1;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+/* Input styling inside table */
+td input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+td input:focus {
+    border-color: var(--accent-inv);
+    outline: none;
+}
+
+/* Column widths */
+.col-name { width: 35%; }
+.col-num { width: 15%; }
+.col-res { width: 15%; background-color: #fafafa; font-weight: bold; color: var(--text-secondary); }
+.col-action { width: 5%; text-align: center; }
+
+.btn-remove {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.btn-remove:hover {
+    color: #c0392b;
+}
+
+/* RESULTS DASHBOARD */
+.results-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+    border-top: 2px solid #eee;
+    padding-top: 20px;
+}
+
+.res-block {
+    flex: 1;
+    min-width: 250px;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid transparent;
+}
+
+/* Inverter Block */
+.res-inv {
+    background-color: #eaf2f8;
+    border-color: #d6eaf8;
+}
+.res-inv h3 { color: var(--accent-inv); margin: 0 0 10px 0; font-size: 1rem; }
+.res-inv .big-val { color: var(--accent-inv); }
+
+/* Battery Block */
+.res-bat {
+    background-color: #eafaf1;
+    border-color: #d5f5e3;
+}
+.res-bat h3 { color: var(--accent-bat); margin: 0 0 10px 0; font-size: 1rem; }
+.res-bat .big-val { color: var(--accent-bat); }
+
+.big-val {
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.sub-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* EXPERT TOGGLE */
+.expert-row {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.sim-input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

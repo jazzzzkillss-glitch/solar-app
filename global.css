@@ -1,0 +1,87 @@
+/* Глобальные стили для всех страниц */
+:root {
+    --fab-bg: #2c3e50;
+    --fab-color: #fff;
+    --fab-accent: #e74c3c; /* Красный для PDF */
+}
+
+/* ПЛАВАЮЩЕЕ МЕНЮ (FAB) */
+.fab-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 9999;
+}
+
+.fab-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--fab-bg);
+    color: var(--fab-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.fab-btn:hover {
+    transform: scale(1.1);
+}
+
+.fab-main {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    background-color: #2980b9;
+}
+
+.fab-pdf {
+    background-color: var(--fab-accent);
+}
+
+/* Подсказки при наведении на кнопки */
+.fab-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: 70px;
+    background: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.fab-btn:hover::after {
+    opacity: 1;
+}
+
+/* Скрываем кнопки при печати */
+@media print {
+    .fab-container, .controls-bar, .nav-home-btn, header, footer {
+        display: none !important;
+    }
+    body {
+        background: white;
+        padding: 0;
+    }
+    .calculator-card, .audit-card {
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+}
